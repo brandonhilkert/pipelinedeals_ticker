@@ -13,20 +13,22 @@ App.Deal = DS.Model.extend({
 });
 
 App.Router.map(function() {
-  this.resource('deals', { path: '/deals/:api_key' });
+  this.resource('start', { path: '/' });
+  this.resource('deals');
 });
 
 App.DealsRoute = Ember.Route.extend({
-  model: function(params) {
-    // return App.Deal.getWonFor(params.api_key);
+  model: function() {
+    // return App.Deal.getWonFor(localStorage.apiKey);
     return App.Deal.find();
   }
 });
 
-App.IndexController = Ember.ObjectController.extend({
+App.StartController = Ember.ObjectController.extend({
   apiKey: "",
   getDeals: function () {
-    this.transitionToRoute('deals', [this.apiKey]);
+    localStorage.setItem('apiKey', this.apiKey)
+    this.transitionToRoute('deals');
   }
 });
 

@@ -14,10 +14,10 @@
     {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" data-template-name="index">
+  <script type="text/x-handlebars" data-template-name="start">
     {{view Em.TextField valueBinding="apiKey" placeholder="API Key"}}
     <br />
-    <button {{action getDeals}} class="btn btn-large">Get Won Deals!</button>
+    <button {{action 'getDeals'}} class="btn btn-large">Get Won Deals!</button>
   </script>
 
   <script type="text/x-handlebars" data-template-name="deals">
