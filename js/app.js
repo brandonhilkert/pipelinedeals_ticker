@@ -17,3 +17,11 @@ App.IndexRoute = Ember.Route.extend({
     return App.Deal.find();
   }
 });
+
+App.IndexView = Ember.View.extend({
+  didInsertElement: function() {
+    // Add active class to first item
+    this.$().find('.item').first().addClass('active');
+    this.$().find('.carousel').carousel({interval: 5000});
+  }
+});
