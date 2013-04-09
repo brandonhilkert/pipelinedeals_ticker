@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Ember Starter Kit</title>
+<title>PipelineDeals won deals!</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/style.css">
@@ -10,11 +10,17 @@
 <body>
 
   <script type="text/x-handlebars">
-    <h2>You Won this shit dog!</h2>
+    <h2>PipelineDeals Won Deal Ticker</h2>
     {{outlet}}
   </script>
 
   <script type="text/x-handlebars" data-template-name="index">
+    {{view Em.TextField valueBinding="apiKey" placeholder="API Key"}}
+    <br />
+    <button {{action getDeals}} class="btn btn-large">Get Won Deals!</button>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="deals">
     <div id="carousel" class="carousel slide">
       <div class="carousel-inner">
         {{#each model}}
