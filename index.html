@@ -10,12 +10,12 @@
 <body>
 
   <script type="text/x-handlebars">
-    <h2>PipelineDeals Won Deal Ticker</h2>
+    <h2>PipelineDeals Won Deals Ticker</h2>
     {{outlet}}
   </script>
 
   <script type="text/x-handlebars" data-template-name="start">
-    {{view Em.TextField valueBinding="apiKey" placeholder="API Key" action="getDeals" }}
+    {{view Em.TextField valueBinding="apiKey" placeholder="API Key" action="getDeals" class="api-key"}}
     <br />
     <button {{action 'getDeals' apiKey}} class="btn btn-large">Get Won Deals!</button>
   </script>
