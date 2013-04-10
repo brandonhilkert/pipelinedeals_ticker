@@ -52,6 +52,7 @@ App.StartController = Ember.ObjectController.extend({
 
 App.DealsView = Ember.View.extend({
   didInsertElement: function() {
+    debugger
     // Add active class to first item
     this.$().find('.item').first().addClass('active');
     this.$().find('.carousel').carousel({interval: 1000});
