@@ -10,14 +10,15 @@
 <body>
 
   <script type="text/x-handlebars">
-    <h2>PipelineDeals Won Deals Ticker</h2>
+    <h1>PipelineDeals Won Deals Ticker</h1>
     {{outlet}}
   </script>
 
   <script type="text/x-handlebars" data-template-name="start">
     {{view Em.TextField valueBinding="apiKey" placeholder="API Key" action="getDeals" class="api-key"}}
     <br />
-    <button {{action 'getDeals' apiKey}} class="btn btn-large">Get Won Deals!</button>
+    <br />
+    <button {{action 'getDeals' apiKey}} class="button">Get Won Deals!</button>
   </script>
 
   <script type="text/x-handlebars" data-template-name="deals">
@@ -25,7 +26,13 @@
       <div class="carousel-inner">
         {{#each model}}
           <div class="item">
-            {{name}}
+            <div class="pane">
+              <div class="value">{{formatCurrency value_in_cents}}</div>
+               <div class="name">
+                {{name}}
+               </div>
+               <div class="date">{{formatDate closed_time}}</div>
+            </div>
           </div>
         {{/each}}
       </div>
@@ -37,6 +44,8 @@
   <script src="js/libs/handlebars-1.0.0-rc.3.js"></script>
   <script src="js/libs/ember-1.0.0-rc.2.js"></script>
   <script src="js/libs/ember-data.js"></script>
+  <script src="js/libs/accounting.min.js"></script>
+  <script src="js/libs/moment.min.js"></script>
   <script src="js/app.js"></script>
 
 </body>
