@@ -28,10 +28,15 @@
           <div class="item">
             <div class="pane">
               <div class="value">{{formatCurrency value_in_cents}}</div>
-               <div class="name">
-                {{name}}
-               </div>
-               <div class="date">{{formatDate closed_time}}</div>
+              {{#with user}}
+                <div class="user">{{full_name}}</div>
+              {{/ with}}
+
+              {{#with company}}
+                <div class="company">{{name}}</div>
+              {{/ with}}
+
+              <div class="date">{{formatDate closed_time}}</div>
             </div>
           </div>
         {{/each}}
