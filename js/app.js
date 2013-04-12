@@ -1,7 +1,7 @@
 App = Ember.Application.create();
 
-App.Adapter = DS.FixtureAdapter.extend({
-  url: 'http://www.pipelinedeals.com/api/v3'
+App.Adapter = DS.RESTAdapter.extend({
+  url: 'http://localhost:3000/api/v3'
 });
 
 App.Adapter.map('App.Deal', {
@@ -57,11 +57,11 @@ App.ApiRoute = Ember.Route.extend({
 
 App.DealsRoute = Ember.Route.extend({
   model: function(params) {
-    // return App.Deal.find({
-    //   api_key: this.modelFor('api'),
-    //   per_page: 10
-    // });
-    return App.Deal.find();
+    return App.Deal.find({
+      api_key: this.modelFor('api'),
+      per_page: 10
+    });
+    // return App.Deal.find();
   }
 });
 
