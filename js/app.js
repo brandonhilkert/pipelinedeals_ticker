@@ -1,38 +1,24 @@
 App = Ember.Application.create();
 
-App.Adapter = DS.RESTAdapter.extend({
+App.Adapter = DS.FixtureAdapter.extend({
   url: 'http://localhost:3000/api/v3'
-});
-
-App.Adapter.map('App.Deal', {
-  user: {embedded: 'load'},
-  company: {embedded: 'load'}
-});
-
-App.User = DS.Model.extend({
-  full_name: DS.attr('string')
-});
-
-App.Company = DS.Model.extend({
-  name: DS.attr('string')
-});
-
-App.Deal = DS.Model.extend({
-  name: DS.attr('string'),
-  valueInCents: DS.attr('number'),
-  closedTime: DS.attr('date'),
-  user: DS.belongsTo(App.User, {embedded: 'load'}),
-  company: DS.belongsTo(App.Company, {embedded: 'load'}),
-
-  findWonId: function () {
-    console.log('asdf')
-
-  }
 });
 
 App.Store = DS.Store.extend({
   revision: 12,
   adapter: App.Adapter
+});
+
+App.Deal = DS.Model.extend({
+  name: DS.attr('string'),
+  value_in_cents: DS.attr('number'),
+  closed_time: DS.attr('date'),
+  user: DS.attr('object'),
+  company: DS.attr('object'),
+
+  findWonId: function () {
+    console.log('asdf')
+  }
 });
 
 App.Deal.FIXTURES = [
@@ -57,11 +43,11 @@ App.ApiRoute = Ember.Route.extend({
 
 App.DealsRoute = Ember.Route.extend({
   model: function(params) {
-    return App.Deal.find({
-      api_key: this.modelFor('api'),
-      per_page: 10
-    });
-    // return App.Deal.find();
+    // return App.Deal.find({
+    //   api_key: this.modelFor('api'),
+    //   per_page: 10
+    // });
+    return App.Deal.find();
   }
 });
 
