@@ -1,7 +1,18 @@
 App = Ember.Application.create();
 
-App.Adapter = DS.FixtureAdapter.extend({
-  url: 'http://localhost:3000/api/v3'
+App.Adapter = DS.RESTAdapter.extend({
+  url: 'http://api.pipelinedeals.com/api/v3',
+  serializer: DS.JSONSerializer.extend({
+    extractMany: function(loader, json, type, records) {
+      var root = this.rootForType(type);
+      var roots = this.pluralize(root);
+
+      newJson = {};
+      newJson[roots] = json.entries
+      debugger
+      this._super(loader, newJson, type, records);
+    }
+  })
 });
 
 App.Store = DS.Store.extend({
@@ -21,11 +32,12 @@ App.Deal = DS.Model.extend({
   }
 });
 
-App.Deal.FIXTURES = [
-  {id: 1, name: 'Deal 1', closed_time: '2012-09-01', value_in_cents: 342345, company: { id: 1, name: 'Google' }, user: { id: 3, full_name: 'Brandon Hilkert' } },
-  {id: 2, name: 'Deal 2', closed_time: '2013-04-01', value_in_cents: 82345, company: { id: 2, name: 'Apple' }, user: { id: 2, full_name: 'Bob Smith' } },
-  {id: 3, name: 'Deal 3', closed_time: '2013-02-01', value_in_cents: 1500000, company: { id: 3, name: 'Wegman\'s' }, user: { id: 2, full_name: 'Bob Smith' } }
-]
+App.Deal.FIXTURES = { entries: [
+    {id: 1, name: 'Deal 1', closed_time: '2012-09-01', value_in_cents: 342345, company: { id: 1, name: 'Google' }, user: { id: 3, full_name: 'Brandon Hilkert' } },
+    {id: 2, name: 'Deal 2', closed_time: '2013-04-01', value_in_cents: 82345, company: { id: 2, name: 'Apple' }, user: { id: 2, full_name: 'Bob Smith' } },
+    {id: 3, name: 'Deal 3', closed_time: '2013-02-01', value_in_cents: 1500000, company: { id: 3, name: 'Wegman\'s' }, user: { id: 2, full_name: 'Bob Smith' } }
+  ]
+}
 
 App.Router.map(function() {
   this.resource('start', { path: '/' });
@@ -43,11 +55,12 @@ App.ApiRoute = Ember.Route.extend({
 
 App.DealsRoute = Ember.Route.extend({
   model: function(params) {
-    // return App.Deal.find({
-    //   api_key: this.modelFor('api'),
-    //   per_page: 10
-    // });
-    return App.Deal.find();
+    return App.Deal.find({
+      api_key: this.modelFor('api'),
+      per_page: 10,
+      attrs: "id,name,value_in_cents,closed_time,user,company"
+    });
+    // return App.Deal.find();
   }
 });
 
